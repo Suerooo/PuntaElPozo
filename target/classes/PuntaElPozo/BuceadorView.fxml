@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="PuntaElPozo.Controller.BuceadorController"
+            stylesheets="@../css/style.css"
+            prefWidth="1300"
+            prefHeight="760"
+            styleClass="root-container">
+
+    <!-- CABECERA -->
+    <top>
+        <VBox styleClass="header">
+            <Label text="Gestión Centralizada del Club de Buceo"
+                   styleClass="header-title"/>
+
+            <Label text="Administración de buceadores, seguros, reconocimientos médicos y contactos de emergencia"
+                   styleClass="header-subtitle"/>
+        </VBox>
+    </top>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <center>
+        <SplitPane dividerPositions="0.43"
+                   styleClass="main-split-pane">
+
+            <!-- PANEL FORMULARIO -->
+            <AnchorPane>
+                <VBox spacing="18"
+                      AnchorPane.topAnchor="0"
+                      AnchorPane.rightAnchor="0"
+                      AnchorPane.bottomAnchor="0"
+                      AnchorPane.leftAnchor="0"
+                      styleClass="form-panel">
+
+                    <VBox spacing="4">
+                        <Label text="Ficha del buceador"
+                               styleClass="section-title"/>
+
+                        <Label text="Introduce o modifica los datos del buceador seleccionado."
+                               styleClass="section-subtitle"/>
+                    </VBox>
+
+                    <Separator/>
+
+                    <GridPane hgap="14" vgap="12" styleClass="form-grid">
+
+                        <!-- Documento -->
+                        <Label text="DNI/NIE/Pasaporte *"
+                               GridPane.rowIndex="0"
+                               GridPane.columnIndex="0"/>
+
+                        <TextField fx:id="txtDniNiePasaporte"
+                                   promptText="Ej. 12345678A"
+                                   GridPane.rowIndex="0"
+                                   GridPane.columnIndex="1"
+                                   styleClass="input"/>
+
+                        <!-- Nombre -->
+                        <Label text="Nombre *"
+                               GridPane.rowIndex="1"
+                               GridPane.columnIndex="0"/>
+
+                        <TextField fx:id="txtNombre"
+                                   promptText="Nombre"
+                                   GridPane.rowIndex="1"
+                                   GridPane.columnIndex="1"
+                                   styleClass="input"/>
+
+                        <!-- Apellidos -->
+                        <Label text="Apellidos *"
+                               GridPane.rowIndex="2"
+                               GridPane.columnIndex="0"/>
+
+                        <TextField fx:id="txtApellidos"
+                                   promptText="Apellidos"
+                                   GridPane.rowIndex="2"
+                                   GridPane.columnIndex="1"
+                                   styleClass="input"/>
+
+                        <!-- Email -->
+                        <Label text="Email"
+                               GridPane.rowIndex="3"
+                               GridPane.columnIndex="0"/>
+
+                        <TextField fx:id="txtEmail"
+                                   promptText="correo@ejemplo.com"
+                                   GridPane.rowIndex="3"
+                                   GridPane.columnIndex="1"
+                                   styleClass="input"/>
+
+                        <!-- Teléfono -->
+                        <Label text="Teléfono"
+                               GridPane.rowIndex="4"
+                               GridPane.columnIndex="0"/>
+
+                        <TextField fx:id="txtTelefono"
+                                   promptText="Teléfono"
+                                   GridPane.rowIndex="4"
+                                   GridPane.columnIndex="1"
+                                   styleClass="input"/>
+
+                        <!-- Fecha nacimiento -->
+                        <Label text="Fecha nacimiento"
+                               GridPane.rowIndex="5"
+                               GridPane.columnIndex="0"/>
+
+                        <DatePicker fx:id="dpFechaNacimiento"
+                                    GridPane.rowIndex="5"
+                                    GridPane.columnIndex="1"
+                                    styleClass="input"/>
+
+                        <!-- Fecha alta -->
+                        <Label text="Fecha alta *"
+                               GridPane.rowIndex="6"
+                               GridPane.columnIndex="0"/>
+
+                        <DatePicker fx:id="dpFechaAlta"
+                                    GridPane.rowIndex="6"
+                                    GridPane.columnIndex="1"
+                                    styleClass="input"/>
+
+                        <!-- Reconocimiento médico -->
+                        <Label text="Último reconocimiento *"
+                               GridPane.rowIndex="7"
+                               GridPane.columnIndex="0"/>
+
+                        <DatePicker fx:id="dpFechaUltimoReconocimientoMedico"
+                                    GridPane.rowIndex="7"
+                                    GridPane.columnIndex="1"
+                                    styleClass="input"/>
+
+                        <!-- Caducidad seguro -->
+                        <Label text="Caducidad seguro *"
+                               GridPane.rowIndex="8"
+                               GridPane.columnIndex="0"/>
+
+                        <DatePicker fx:id="dpFechaCaducidadSeguro"
+                                    GridPane.rowIndex="8"
+                                    GridPane.columnIndex="1"
+                                    styleClass="input"/>
+
+                        <!-- Compañía seguro -->
+                        <Label text="Compañía seguro *"
+                               GridPane.rowIndex="9"
+                               GridPane.columnIndex="0"/>
+
+                        <TextField fx:id="txtCompaniaSeguro"
+                                   promptText="Compañía aseguradora"
+                                   GridPane.rowIndex="9"
+                                   GridPane.columnIndex="1"
+                                   styleClass="input"/>
+
+                        <!-- Contacto emergencia nombre -->
+                        <Label text="Contacto emergencia *"
+                               GridPane.rowIndex="10"
+                               GridPane.columnIndex="0"/>
+
+                        <TextField fx:id="txtContactoEmergenciaNombre"
+                                   promptText="Nombre del contacto"
+                                   GridPane.rowIndex="10"
+                                   GridPane.columnIndex="1"
+                                   styleClass="input"/>
+
+                        <!-- Contacto emergencia teléfono -->
+                        <Label text="Teléfono emergencia *"
+                               GridPane.rowIndex="11"
+                               GridPane.columnIndex="0"/>
+
+                        <TextField fx:id="txtContactoEmergenciaTelefono"
+                                   promptText="Teléfono del contacto"
+                                   GridPane.rowIndex="11"
+                                   GridPane.columnIndex="1"
+                                   styleClass="input"/>
+
+                        <!-- Grupo sanguíneo -->
+                        <Label text="Grupo sanguíneo"
+                               GridPane.rowIndex="12"
+                               GridPane.columnIndex="0"/>
+
+                        <TextField fx:id="txtGrupoSanguineo"
+                                   promptText="Ej. A+, O-, AB+"
+                                   GridPane.rowIndex="12"
+                                   GridPane.columnIndex="1"
+                                   styleClass="input"/>
+
+                        <!-- Titulación -->
+                        <Label text="Titulación actual"
+                               GridPane.rowIndex="13"
+                               GridPane.columnIndex="0"/>
+
+                        <TextField fx:id="txtTitulacionActual"
+                                   promptText="Ej. Open Water, Advanced..."
+                                   GridPane.rowIndex="13"
+                                   GridPane.columnIndex="1"
+                                   styleClass="input"/>
+
+                        <!-- Organización -->
+                        <Label text="Organización"
+                               GridPane.rowIndex="14"
+                               GridPane.columnIndex="0"/>
+
+                        <TextField fx:id="txtOrganizacion"
+                                   promptText="Ej. PADI, SSI, FEDAS..."
+                                   GridPane.rowIndex="14"
+                                   GridPane.columnIndex="1"
+                                   styleClass="input"/>
+
+                        <!-- Número inmersiones -->
+                        <Label text="Nº inmersiones"
+                               GridPane.rowIndex="15"
+                               GridPane.columnIndex="0"/>
+
+                        <TextField fx:id="txtNumeroInmersiones"
+                                   promptText="0"
+                                   GridPane.rowIndex="15"
+                                   GridPane.columnIndex="1"
+                                   styleClass="input"/>
+
+                        <!-- Alergias -->
+                        <Label text="Alergias"
+                               GridPane.rowIndex="16"
+                               GridPane.columnIndex="0"/>
+
+                        <TextArea fx:id="txtAlergias"
+                                  promptText="Indicar alergias conocidas o dejar vacío"
+                                  prefRowCount="3"
+                                  wrapText="true"
+                                  GridPane.rowIndex="16"
+                                  GridPane.columnIndex="1"
+                                  styleClass="input"/>
+
+                    </GridPane>
+
+                    <HBox spacing="10" styleClass="button-bar">
+                        <Button fx:id="btnGuardar"
+                                text="Registrar"
+                                onAction="#onGuardar"
+                                styleClass="btn-primary"/>
+
+                        <Button fx:id="btnModificar"
+                                text="Modificar"
+                                onAction="#onModificar"
+                                styleClass="btn-secondary"/>
+
+                        <Button fx:id="btnEliminar"
+                                text="Eliminar"
+                                onAction="#onEliminar"
+                                styleClass="btn-danger"/>
+
+                        <Button fx:id="btnLimpiar"
+                                text="Limpiar"
+                                onAction="#onLimpiar"
+                                styleClass="btn-neutral"/>
+                    </HBox>
+
+                </VBox>
+            </AnchorPane>
+
+            <!-- PANEL TABLA -->
+            <AnchorPane>
+                <VBox spacing="14"
+                      AnchorPane.topAnchor="0"
+                      AnchorPane.rightAnchor="0"
+                      AnchorPane.bottomAnchor="0"
+                      AnchorPane.leftAnchor="0"
+                      styleClass="table-panel">
+
+                    <VBox spacing="4">
+                        <Label text="Listado de buceadores"
+                               styleClass="section-title"/>
+
+                        <Label text="Consulta, búsqueda y selección de buceadores registrados."
+                               styleClass="section-subtitle"/>
+                    </VBox>
+
+                    <HBox spacing="10" styleClass="search-box">
+                        <TextField fx:id="txtBuscar"
+                                   promptText="Buscar por DNI/NIE/Pasaporte, nombre o apellidos..."
+                                   HBox.hgrow="ALWAYS"
+                                   styleClass="search-input"/>
+
+                        <Button fx:id="btnBuscar"
+                                text="Buscar"
+                                onAction="#onBuscar"
+                                styleClass="btn-primary"/>
+
+                        <Button fx:id="btnMostrarTodos"
+                                text="Mostrar todos"
+                                onAction="#onMostrarTodos"
+                                styleClass="btn-secondary"/>
+                    </HBox>
+
+                    <TableView fx:id="tablaBuceadores"
+                               VBox.vgrow="ALWAYS"
+                               styleClass="table-view-custom">
+
+                        <columns>
+                            <TableColumn fx:id="colIdBuceador"
+                                         text="ID"
+                                         prefWidth="60"/>
+
+                            <TableColumn fx:id="colDniNiePasaporte"
+                                         text="DNI/NIE/Pasaporte"
+                                         prefWidth="145"/>
+
+                            <TableColumn fx:id="colNombre"
+                                         text="Nombre"
+                                         prefWidth="120"/>
+
+                            <TableColumn fx:id="colApellidos"
+                                         text="Apellidos"
+                                         prefWidth="180"/>
+
+                            <TableColumn fx:id="colEmail"
+                                         text="Email"
+                                         prefWidth="190"/>
+
+                            <TableColumn fx:id="colTelefono"
+                                         text="Teléfono"
+                                         prefWidth="120"/>
+
+                            <TableColumn fx:id="colFechaAlta"
+                                         text="Fecha alta"
+                                         prefWidth="110"/>
+
+                            <TableColumn fx:id="colFechaCaducidadSeguro"
+                                         text="Caducidad seguro"
+                                         prefWidth="140"/>
+
+                            <TableColumn fx:id="colTitulacionActual"
+                                         text="Titulación"
+                                         prefWidth="140"/>
+
+                            <TableColumn fx:id="colNumeroInmersiones"
+                                         text="Inmersiones"
+                                         prefWidth="110"/>
+                        </columns>
+                    </TableView>
+
+                    <HBox spacing="8" styleClass="status-bar">
+                        <Label text="Estado:"
+                               styleClass="status-label"/>
+
+                        <Label fx:id="lblEstado"
+                               text="Aplicación preparada."
+                               styleClass="status-text"/>
+
+                        <Region HBox.hgrow="ALWAYS"/>
+
+                        <Label text="Campos marcados con * son obligatorios"
+                               styleClass="hint-text"/>
+                    </HBox>
+
+                </VBox>
+            </AnchorPane>
+
+        </SplitPane>
+    </center>
+
+</BorderPane>

@@ -1,0 +1,267 @@
+.root-container {
+  -fx-background-color: #eef4f8;
+  -fx-font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+/* CABECERA */
+
+.header {
+  -fx-background-color: linear-gradient(to right, #003b5c, #006c8f);
+  -fx-padding: 22 32 22 32;
+  -fx-spacing: 4;
+}
+
+.header-title {
+  -fx-text-fill: white;
+  -fx-font-size: 26px;
+  -fx-font-weight: bold;
+}
+
+.header-subtitle {
+  -fx-text-fill: #d8eef7;
+  -fx-font-size: 14px;
+}
+
+/* PANELES PRINCIPALES */
+
+.main-split-pane {
+  -fx-background-color: transparent;
+  -fx-padding: 18;
+}
+
+.main-split-pane .split-pane-divider {
+  -fx-background-color: transparent;
+  -fx-padding: 0 4 0 4;
+}
+
+.form-panel,
+.table-panel {
+  -fx-background-color: white;
+  -fx-background-radius: 14;
+  -fx-border-radius: 14;
+  -fx-border-color: #d9e4ea;
+  -fx-border-width: 1;
+  -fx-padding: 22;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 16, 0.15, 0, 4);
+}
+
+/* TÍTULOS DE SECCIÓN */
+
+.section-title {
+  -fx-text-fill: #17394d;
+  -fx-font-size: 20px;
+  -fx-font-weight: bold;
+}
+
+.section-subtitle {
+  -fx-text-fill: #6c7f8a;
+  -fx-font-size: 13px;
+}
+
+/* FORMULARIO */
+
+.form-grid Label {
+  -fx-text-fill: #29485a;
+  -fx-font-size: 13px;
+  -fx-font-weight: 600;
+}
+
+.input,
+.search-input {
+  -fx-background-color: #f8fbfd;
+  -fx-border-color: #cbdce5;
+  -fx-border-radius: 8;
+  -fx-background-radius: 8;
+  -fx-padding: 8 10 8 10;
+  -fx-font-size: 13px;
+  -fx-text-fill: #1f3440;
+}
+
+.input:focused,
+.search-input:focused {
+  -fx-background-color: white;
+  -fx-border-color: #0089b3;
+  -fx-border-width: 1.4;
+}
+
+.text-area.input {
+  -fx-padding: 0;
+}
+
+.text-area.input .content {
+  -fx-background-color: #f8fbfd;
+  -fx-background-radius: 8;
+}
+
+.text-area.input:focused .content {
+  -fx-background-color: white;
+}
+
+/* DATEPICKER */
+
+.date-picker {
+  -fx-background-color: transparent;
+}
+
+.date-picker .text-field {
+  -fx-background-color: #f8fbfd;
+  -fx-border-color: #cbdce5;
+  -fx-border-radius: 8 0 0 8;
+  -fx-background-radius: 8 0 0 8;
+  -fx-padding: 8 10 8 10;
+}
+
+.date-picker:focused .text-field {
+  -fx-border-color: #0089b3;
+}
+
+.date-picker .arrow-button {
+  -fx-background-color: #006c8f;
+  -fx-background-radius: 0 8 8 0;
+}
+
+.date-picker .arrow-button:hover {
+  -fx-background-color: #0089b3;
+}
+
+.date-picker .arrow {
+  -fx-background-color: white;
+}
+
+/* BOTONES */
+
+.button-bar {
+  -fx-padding: 8 0 0 0;
+}
+
+.button {
+  -fx-background-radius: 9;
+  -fx-border-radius: 9;
+  -fx-padding: 9 16 9 16;
+  -fx-font-size: 13px;
+  -fx-font-weight: bold;
+  -fx-cursor: hand;
+}
+
+.btn-primary {
+  -fx-background-color: #0077a3;
+  -fx-text-fill: white;
+}
+
+.btn-primary:hover {
+  -fx-background-color: #0092c7;
+}
+
+.btn-secondary {
+  -fx-background-color: #e3f1f7;
+  -fx-text-fill: #005a78;
+  -fx-border-color: #b9dce9;
+}
+
+.btn-secondary:hover {
+  -fx-background-color: #d0eaf4;
+}
+
+.btn-danger {
+  -fx-background-color: #d9534f;
+  -fx-text-fill: white;
+}
+
+.btn-danger:hover {
+  -fx-background-color: #c9302c;
+}
+
+.btn-neutral {
+  -fx-background-color: #eef2f4;
+  -fx-text-fill: #3c4b52;
+  -fx-border-color: #d0d9de;
+}
+
+.btn-neutral:hover {
+  -fx-background-color: #e1e7eb;
+}
+
+/* BÚSQUEDA */
+
+.search-box {
+  -fx-background-color: #f4f9fb;
+  -fx-background-radius: 12;
+  -fx-border-radius: 12;
+  -fx-border-color: #d9e8ef;
+  -fx-padding: 12;
+}
+
+/* TABLA */
+
+.table-view-custom {
+  -fx-background-color: white;
+  -fx-border-color: #d9e4ea;
+  -fx-border-radius: 10;
+  -fx-background-radius: 10;
+}
+
+.table-view-custom .column-header-background {
+  -fx-background-color: #003b5c;
+  -fx-background-radius: 10 10 0 0;
+}
+
+.table-view-custom .column-header,
+.table-view-custom .filler {
+  -fx-background-color: transparent;
+  -fx-size: 38px;
+}
+
+.table-view-custom .column-header .label {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-font-size: 12px;
+}
+
+.table-view-custom .table-row-cell {
+  -fx-background-color: white;
+  -fx-border-color: transparent transparent #edf3f6 transparent;
+  -fx-padding: 2;
+}
+
+.table-view-custom .table-row-cell:odd {
+  -fx-background-color: #f8fbfd;
+}
+
+.table-view-custom .table-row-cell:selected {
+  -fx-background-color: #bce7f5;
+}
+
+.table-view-custom .table-row-cell:selected .text {
+  -fx-fill: #123746;
+}
+
+.table-view-custom .table-cell {
+  -fx-text-fill: #263f4c;
+  -fx-font-size: 13px;
+  -fx-alignment: CENTER_LEFT;
+  -fx-padding: 8;
+}
+
+/* BARRA DE ESTADO */
+
+.status-bar {
+  -fx-background-color: #f4f9fb;
+  -fx-background-radius: 10;
+  -fx-border-color: #d9e8ef;
+  -fx-border-radius: 10;
+  -fx-padding: 10 12 10 12;
+}
+
+.status-label {
+  -fx-text-fill: #17394d;
+  -fx-font-weight: bold;
+}
+
+.status-text {
+  -fx-text-fill: #4f6570;
+}
+
+.hint-text {
+  -fx-text-fill: #6f8088;
+  -fx-font-size: 12px;
+}
