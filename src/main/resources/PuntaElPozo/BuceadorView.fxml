@@ -1,372 +1,262 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="PuntaElPozo.Controller.BuceadorController"
-            stylesheets="@../css/style.css"
-            prefWidth="1300"
-            prefHeight="760"
-            styleClass="root-container">
+<BorderPane prefHeight="760" prefWidth="1300" styleClass="root-container" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PuntaElPozo.Controller.BuceadorController">
 
     <!-- CABECERA -->
     <top>
         <VBox styleClass="header">
-            <Label text="Gestión Centralizada del Club de Buceo"
-                   styleClass="header-title"/>
+            <Label styleClass="header-title" text="Gestión Centralizada del Club de Buceo" />
 
-            <Label text="Administración de buceadores, seguros, reconocimientos médicos y contactos de emergencia"
-                   styleClass="header-subtitle"/>
+            <Label styleClass="header-subtitle" text="Administración de buceadores, seguros, reconocimientos médicos y contactos de emergencia" />
         </VBox>
     </top>
 
     <!-- CONTENIDO PRINCIPAL -->
     <center>
-        <SplitPane dividerPositions="0.43"
-                   styleClass="main-split-pane">
+        <SplitPane dividerPositions="0.43" styleClass="main-split-pane">
 
             <!-- PANEL FORMULARIO -->
-            <AnchorPane>
-                <VBox spacing="18"
-                      AnchorPane.topAnchor="0"
-                      AnchorPane.rightAnchor="0"
-                      AnchorPane.bottomAnchor="0"
-                      AnchorPane.leftAnchor="0"
-                      styleClass="form-panel">
+            <AnchorPane minWidth="0">
+                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="form-scroll" vbarPolicy="AS_NEEDED" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+                <VBox spacing="18" styleClass="form-panel">
 
                     <VBox spacing="4">
-                        <Label text="Ficha del buceador"
-                               styleClass="section-title"/>
+                        <Label styleClass="section-title" text="Ficha del buceador" />
 
-                        <Label text="Introduce o modifica los datos del buceador seleccionado."
-                               styleClass="section-subtitle"/>
+                        <Label styleClass="section-subtitle" text="Introduce o modifica los datos del buceador seleccionado." />
                     </VBox>
 
-                    <Separator/>
+                    <Separator />
 
-                    <GridPane hgap="14" vgap="12" styleClass="form-grid">
+                    <GridPane hgap="14" styleClass="form-grid" vgap="12">
+                        <columnConstraints>
+                            <ColumnConstraints minWidth="135" prefWidth="155" />
+                            <ColumnConstraints hgrow="ALWAYS" minWidth="170" />
+                        </columnConstraints>
 
                         <!-- Documento -->
-                        <Label text="DNI/NIE/Pasaporte *"
-                               GridPane.rowIndex="0"
-                               GridPane.columnIndex="0"/>
+                        <Label text="DNI *" GridPane.columnIndex="0" GridPane.rowIndex="0" />
 
-                        <TextField fx:id="txtDniNiePasaporte"
-                                   promptText="Ej. 12345678A"
-                                   GridPane.rowIndex="0"
-                                   GridPane.columnIndex="1"
-                                   styleClass="input"/>
+                        <TextField fx:id="txtDniNiePasaporte" promptText="Ej. 12345678A" styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
                         <!-- Nombre -->
-                        <Label text="Nombre *"
-                               GridPane.rowIndex="1"
-                               GridPane.columnIndex="0"/>
+                        <Label text="Nombre *" GridPane.columnIndex="0" GridPane.rowIndex="1" />
 
-                        <TextField fx:id="txtNombre"
-                                   promptText="Nombre"
-                                   GridPane.rowIndex="1"
-                                   GridPane.columnIndex="1"
-                                   styleClass="input"/>
+                        <TextField fx:id="txtNombre" promptText="Nombre" styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
                         <!-- Apellidos -->
-                        <Label text="Apellidos *"
-                               GridPane.rowIndex="2"
-                               GridPane.columnIndex="0"/>
+                        <Label text="Apellidos *" GridPane.columnIndex="0" GridPane.rowIndex="2" />
 
-                        <TextField fx:id="txtApellidos"
-                                   promptText="Apellidos"
-                                   GridPane.rowIndex="2"
-                                   GridPane.columnIndex="1"
-                                   styleClass="input"/>
+                        <TextField fx:id="txtApellidos" promptText="Apellidos" styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
                         <!-- Email -->
-                        <Label text="Email"
-                               GridPane.rowIndex="3"
-                               GridPane.columnIndex="0"/>
+                        <Label text="Email" GridPane.columnIndex="0" GridPane.rowIndex="3" />
 
-                        <TextField fx:id="txtEmail"
-                                   promptText="correo@ejemplo.com"
-                                   GridPane.rowIndex="3"
-                                   GridPane.columnIndex="1"
-                                   styleClass="input"/>
+                        <TextField fx:id="txtEmail" promptText="correo@ejemplo.com" styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
                         <!-- Teléfono -->
-                        <Label text="Teléfono"
-                               GridPane.rowIndex="4"
-                               GridPane.columnIndex="0"/>
+                        <Label text="Teléfono" GridPane.columnIndex="0" GridPane.rowIndex="4" />
 
-                        <TextField fx:id="txtTelefono"
-                                   promptText="Teléfono"
-                                   GridPane.rowIndex="4"
-                                   GridPane.columnIndex="1"
-                                   styleClass="input"/>
+                        <TextField fx:id="txtTelefono" promptText="Teléfono" styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
                         <!-- Fecha nacimiento -->
-                        <Label text="Fecha nacimiento"
-                               GridPane.rowIndex="5"
-                               GridPane.columnIndex="0"/>
+                        <Label text="Fecha nacimiento" GridPane.columnIndex="0" GridPane.rowIndex="5" />
 
-                        <DatePicker fx:id="dpFechaNacimiento"
-                                    GridPane.rowIndex="5"
-                                    GridPane.columnIndex="1"
-                                    styleClass="input"/>
+                        <DatePicker fx:id="dpFechaNacimiento" styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
                         <!-- Fecha alta -->
-                        <Label text="Fecha alta *"
-                               GridPane.rowIndex="6"
-                               GridPane.columnIndex="0"/>
+                        <Label text="Fecha alta" GridPane.columnIndex="0" GridPane.rowIndex="6" />
 
-                        <DatePicker fx:id="dpFechaAlta"
-                                    GridPane.rowIndex="6"
-                                    GridPane.columnIndex="1"
-                                    styleClass="input"/>
+                        <DatePicker fx:id="dpFechaAlta" disable="true" styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="6" />
 
                         <!-- Reconocimiento médico -->
-                        <Label text="Último reconocimiento *"
-                               GridPane.rowIndex="7"
-                               GridPane.columnIndex="0"/>
+                        <Label text="Último reconocimiento" GridPane.columnIndex="0" GridPane.rowIndex="7" />
 
-                        <DatePicker fx:id="dpFechaUltimoReconocimientoMedico"
-                                    GridPane.rowIndex="7"
-                                    GridPane.columnIndex="1"
-                                    styleClass="input"/>
+                        <DatePicker fx:id="dpFechaUltimoReconocimientoMedico" styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="7" />
 
                         <!-- Caducidad seguro -->
-                        <Label text="Caducidad seguro *"
-                               GridPane.rowIndex="8"
-                               GridPane.columnIndex="0"/>
+                        <Label text="Caducidad seguro" GridPane.columnIndex="0" GridPane.rowIndex="8" />
 
-                        <DatePicker fx:id="dpFechaCaducidadSeguro"
-                                    GridPane.rowIndex="8"
-                                    GridPane.columnIndex="1"
-                                    styleClass="input"/>
+                        <DatePicker fx:id="dpFechaCaducidadSeguro" styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="8" />
 
                         <!-- Compañía seguro -->
-                        <Label text="Compañía seguro *"
-                               GridPane.rowIndex="9"
-                               GridPane.columnIndex="0"/>
+                        <Label text="Compañía seguro" GridPane.columnIndex="0" GridPane.rowIndex="9" />
 
-                        <TextField fx:id="txtCompaniaSeguro"
-                                   promptText="Compañía aseguradora"
-                                   GridPane.rowIndex="9"
-                                   GridPane.columnIndex="1"
-                                   styleClass="input"/>
+                        <TextField fx:id="txtCompaniaSeguro" promptText="Compañía aseguradora" styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="9" />
 
                         <!-- Contacto emergencia nombre -->
-                        <Label text="Contacto emergencia *"
-                               GridPane.rowIndex="10"
-                               GridPane.columnIndex="0"/>
+                        <Label text="Contacto emergencia" GridPane.columnIndex="0" GridPane.rowIndex="10" />
 
-                        <TextField fx:id="txtContactoEmergenciaNombre"
-                                   promptText="Nombre del contacto"
-                                   GridPane.rowIndex="10"
-                                   GridPane.columnIndex="1"
-                                   styleClass="input"/>
+                        <TextField fx:id="txtContactoEmergenciaNombre" promptText="Nombre del contacto" styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="10" />
 
                         <!-- Contacto emergencia teléfono -->
-                        <Label text="Teléfono emergencia *"
-                               GridPane.rowIndex="11"
-                               GridPane.columnIndex="0"/>
+                        <Label text="Teléfono emergencia" GridPane.columnIndex="0" GridPane.rowIndex="11" />
 
-                        <TextField fx:id="txtContactoEmergenciaTelefono"
-                                   promptText="Teléfono del contacto"
-                                   GridPane.rowIndex="11"
-                                   GridPane.columnIndex="1"
-                                   styleClass="input"/>
+                        <TextField fx:id="txtContactoEmergenciaTelefono" promptText="Teléfono del contacto" styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="11" />
 
                         <!-- Grupo sanguíneo -->
-                        <Label text="Grupo sanguíneo"
-                               GridPane.rowIndex="12"
-                               GridPane.columnIndex="0"/>
+                        <Label text="Grupo sanguíneo" GridPane.columnIndex="0" GridPane.rowIndex="12" />
 
-                        <TextField fx:id="txtGrupoSanguineo"
-                                   promptText="Ej. A+, O-, AB+"
-                                   GridPane.rowIndex="12"
-                                   GridPane.columnIndex="1"
-                                   styleClass="input"/>
+                        <ComboBox fx:id="cbGrupoSanguineo" promptText="Ej. A+, O-, AB+" styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="12" />
 
                         <!-- Titulación -->
-                        <Label text="Titulación actual"
-                               GridPane.rowIndex="13"
-                               GridPane.columnIndex="0"/>
+                        <Label text="Titulación actual" GridPane.columnIndex="0" GridPane.rowIndex="13" />
 
-                        <TextField fx:id="txtTitulacionActual"
-                                   promptText="Ej. Open Water, Advanced..."
-                                   GridPane.rowIndex="13"
-                                   GridPane.columnIndex="1"
-                                   styleClass="input"/>
+                        <TextField fx:id="txtTitulacionActual" promptText="Ej. Open Water, Advanced..." styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="13" />
 
                         <!-- Organización -->
-                        <Label text="Organización"
-                               GridPane.rowIndex="14"
-                               GridPane.columnIndex="0"/>
+                        <Label text="Organización" GridPane.columnIndex="0" GridPane.rowIndex="14" />
 
-                        <TextField fx:id="txtOrganizacion"
-                                   promptText="Ej. PADI, SSI, FEDAS..."
-                                   GridPane.rowIndex="14"
-                                   GridPane.columnIndex="1"
-                                   styleClass="input"/>
+                        <TextField fx:id="txtOrganizacion" promptText="Ej. PADI, SSI, FEDAS..." styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="14" />
 
                         <!-- Número inmersiones -->
-                        <Label text="Nº inmersiones"
-                               GridPane.rowIndex="15"
-                               GridPane.columnIndex="0"/>
+                        <Label text="Nº inmersiones" GridPane.columnIndex="0" GridPane.rowIndex="15" />
 
-                        <TextField fx:id="txtNumeroInmersiones"
-                                   promptText="0"
-                                   GridPane.rowIndex="15"
-                                   GridPane.columnIndex="1"
-                                   styleClass="input"/>
+                        <TextField fx:id="txtNumeroInmersiones" promptText="0" styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="15" />
 
                         <!-- Alergias -->
-                        <Label text="Alergias"
-                               GridPane.rowIndex="16"
-                               GridPane.columnIndex="0"/>
+                        <Label text="Alergias" GridPane.columnIndex="0" GridPane.rowIndex="16" />
 
-                        <TextArea fx:id="txtAlergias"
-                                  promptText="Indicar alergias conocidas o dejar vacío"
-                                  prefRowCount="3"
-                                  wrapText="true"
-                                  GridPane.rowIndex="16"
-                                  GridPane.columnIndex="1"
-                                  styleClass="input"/>
+                        <TextArea fx:id="txtAlergias" prefRowCount="3" promptText="Indicar alergias conocidas o dejar vacío" styleClass="input" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="16" />
+                     <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                     </rowConstraints>
 
                     </GridPane>
 
                     <HBox spacing="10" styleClass="button-bar">
-                        <Button fx:id="btnGuardar"
-                                text="Registrar"
-                                onAction="#onGuardar"
-                                styleClass="btn-primary"/>
+                        <Button fx:id="btnGuardar" onAction="#onGuardar" styleClass="btn-primary" text="Registrar" />
 
-                        <Button fx:id="btnModificar"
-                                text="Modificar"
-                                onAction="#onModificar"
-                                styleClass="btn-secondary"/>
+                        <Button fx:id="btnModificar" onAction="#onModificar" styleClass="btn-secondary" text="Modificar" />
 
-                        <Button fx:id="btnEliminar"
-                                text="Eliminar"
-                                onAction="#onEliminar"
-                                styleClass="btn-danger"/>
+                        <Button fx:id="btnEliminar" onAction="#onEliminar" styleClass="btn-danger" text="Eliminar" />
 
-                        <Button fx:id="btnLimpiar"
-                                text="Limpiar"
-                                onAction="#onLimpiar"
-                                styleClass="btn-neutral"/>
+                        <Button fx:id="btnLimpiar" onAction="#onLimpiar" styleClass="btn-neutral" text="Limpiar" />
                     </HBox>
 
                 </VBox>
+                </ScrollPane>
             </AnchorPane>
 
             <!-- PANEL TABLA -->
-            <AnchorPane>
-                <VBox spacing="14"
-                      AnchorPane.topAnchor="0"
-                      AnchorPane.rightAnchor="0"
-                      AnchorPane.bottomAnchor="0"
-                      AnchorPane.leftAnchor="0"
-                      styleClass="table-panel">
+            <AnchorPane minWidth="0">
+                <VBox minWidth="0" spacing="14" styleClass="table-panel" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
 
                     <VBox spacing="4">
-                        <Label text="Listado de buceadores"
-                               styleClass="section-title"/>
+                        <Label styleClass="section-title" text="Listado de buceadores" />
 
-                        <Label text="Consulta, búsqueda y selección de buceadores registrados."
-                               styleClass="section-subtitle"/>
+                        <Label styleClass="section-subtitle" text="Consulta y selección de buceadores registrados." />
                     </VBox>
 
-                    <HBox spacing="10" styleClass="search-box">
-                        <TextField fx:id="txtBuscar"
-                                   promptText="Buscar por DNI/NIE/Pasaporte, nombre o apellidos..."
-                                   HBox.hgrow="ALWAYS"
-                                   styleClass="search-input"/>
-
-                        <Button fx:id="btnBuscar"
-                                text="Buscar"
-                                onAction="#onBuscar"
-                                styleClass="btn-primary"/>
-
-                        <Button fx:id="btnMostrarTodos"
-                                text="Mostrar todos"
-                                onAction="#onMostrarTodos"
-                                styleClass="btn-secondary"/>
-                    </HBox>
-
-                    <TableView fx:id="tablaBuceadores"
-                               VBox.vgrow="ALWAYS"
-                               styleClass="table-view-custom">
-
+                    <TableView fx:id="tablaBuceadores" minWidth="0" styleClass="table-view-custom" VBox.vgrow="ALWAYS">
                         <columns>
-                            <TableColumn fx:id="colIdBuceador"
-                                         text="ID"
-                                         prefWidth="60"/>
+                            <TableColumn maxWidth="55" minWidth="55" prefWidth="55" resizable="false" sortable="false" text="ID">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="id" />
+                                </cellValueFactory>
+                            </TableColumn>
 
-                            <TableColumn fx:id="colDniNiePasaporte"
-                                         text="DNI/NIE/Pasaporte"
-                                         prefWidth="145"/>
+                            <TableColumn maxWidth="150" minWidth="150" prefWidth="150" resizable="false" sortable="false" text="DNI/NIE/Pasaporte">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="dni" />
+                                </cellValueFactory>
+                            </TableColumn>
 
-                            <TableColumn fx:id="colNombre"
-                                         text="Nombre"
-                                         prefWidth="120"/>
+                            <TableColumn maxWidth="130" minWidth="130" prefWidth="130" resizable="false" sortable="false" text="Nombre">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="nombre" />
+                                </cellValueFactory>
+                            </TableColumn>
 
-                            <TableColumn fx:id="colApellidos"
-                                         text="Apellidos"
-                                         prefWidth="180"/>
+                            <TableColumn maxWidth="190" minWidth="190" prefWidth="190" resizable="false" sortable="false" text="Apellidos">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="apellidos" />
+                                </cellValueFactory>
+                            </TableColumn>
 
-                            <TableColumn fx:id="colEmail"
-                                         text="Email"
-                                         prefWidth="190"/>
+                            <TableColumn maxWidth="220" minWidth="220" prefWidth="220" resizable="false" sortable="false" text="Email">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="email" />
+                                </cellValueFactory>
+                            </TableColumn>
 
-                            <TableColumn fx:id="colTelefono"
-                                         text="Teléfono"
-                                         prefWidth="120"/>
+                            <TableColumn maxWidth="130" minWidth="130" prefWidth="130" resizable="false" sortable="false" text="Teléfono">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="telefono" />
+                                </cellValueFactory>
+                            </TableColumn>
 
-                            <TableColumn fx:id="colFechaAlta"
-                                         text="Fecha alta"
-                                         prefWidth="110"/>
+                            <TableColumn maxWidth="120" minWidth="120" prefWidth="120" resizable="false" sortable="false" text="Fecha alta">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="fechaAlta" />
+                                </cellValueFactory>
+                            </TableColumn>
 
-                            <TableColumn fx:id="colFechaCaducidadSeguro"
-                                         text="Caducidad seguro"
-                                         prefWidth="140"/>
+                            <TableColumn maxWidth="155" minWidth="155" prefWidth="155" resizable="false" sortable="false" text="Caducidad seguro">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="fechaCaducidadSeguro" />
+                                </cellValueFactory>
+                            </TableColumn>
 
-                            <TableColumn fx:id="colTitulacionActual"
-                                         text="Titulación"
-                                         prefWidth="140"/>
+                            <TableColumn maxWidth="180" minWidth="180" prefWidth="180" resizable="false" sortable="false" text="Titulación">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="titulacionActual" />
+                                </cellValueFactory>
+                            </TableColumn>
 
-                            <TableColumn fx:id="colNumeroInmersiones"
-                                         text="Inmersiones"
-                                         prefWidth="110"/>
+                            <TableColumn maxWidth="125" minWidth="125" prefWidth="125" resizable="false" sortable="false" text="Inmersiones">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="numeroInmersiones" />
+                                </cellValueFactory>
+                            </TableColumn>
                         </columns>
                     </TableView>
 
                     <HBox spacing="8" styleClass="status-bar">
-                        <Label text="Estado:"
-                               styleClass="status-label"/>
+                        <Label styleClass="status-label" text="Estado:" />
 
-                        <Label fx:id="lblEstado"
-                               text="Aplicación preparada."
-                               styleClass="status-text"/>
+                        <Label fx:id="lblEstado" styleClass="status-text" text="Aplicación preparada." />
 
-                        <Region HBox.hgrow="ALWAYS"/>
+                        <Region HBox.hgrow="ALWAYS" />
 
-                        <Label text="Campos marcados con * son obligatorios"
-                               styleClass="hint-text"/>
+                        <Label styleClass="hint-text" text="Campos marcados con * son obligatorios" />
                     </HBox>
 
                 </VBox>

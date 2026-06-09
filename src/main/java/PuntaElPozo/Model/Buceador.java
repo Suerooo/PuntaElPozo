@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 public class Buceador implements Serializable, Comparable<Buceador> {
     private Integer id;
-    private final String DNI;
+    private String dni;
     private String nombre;
     private String apellidos;
     private String email;
@@ -28,21 +28,17 @@ public class Buceador implements Serializable, Comparable<Buceador> {
     // ====================================================================================
 
     public Buceador(String dni, String nombre, String apellidos) throws IllegalArgumentException {
-        if (dniValido(dni)) {
-            throw new IllegalArgumentException("Este dni no es valido");
-        }
 
-        this.DNI = dni.trim().toUpperCase();
+        setDni(dni);
         setNombre(nombre);
         setApellidos(apellidos);
+
     }
 
     public Buceador(String dni) throws IllegalArgumentException {
-        if (dniValido(dni)) {
-            throw new IllegalArgumentException("Este dni no es valido");
-        }
 
-        this.DNI = dni.trim().toUpperCase();
+        setDni(dni);
+
     }
 
     // ====================================================================================
@@ -62,10 +58,6 @@ public class Buceador implements Serializable, Comparable<Buceador> {
             throw new IllegalArgumentException("id no puede ser null");
         }
 
-        if (this.id != null) {
-            throw new IllegalArgumentException("El id no puede modificar una vez asignado");
-        }
-
         this.id = id;
     }
 
@@ -73,12 +65,20 @@ public class Buceador implements Serializable, Comparable<Buceador> {
     // DNI
     // ===============================
 
-    public String getDNI() {
-        return DNI;
+    public String getDni() {
+        return dni;
     }
 
-    private static boolean dniValido(String dni) {
-        return !dni.trim().toUpperCase().matches("^\\d{8}[A-Z]$");
+    public void setDni(String dni) {
+        // ^ inicio de la cadena
+        // \\d{8} exactamente 8 dígitos del 0 9
+        // [A-Z] una letra mayúscula de la A a la Z
+        // $ final de la cadena.
+        if (!dni.trim().toUpperCase().matches("^\\d{8}[A-Z]$")) {
+            throw new IllegalArgumentException("Este dni no es valido");
+        }
+
+        this.dni = dni;
     }
 
     // ===============================
@@ -130,19 +130,29 @@ public class Buceador implements Serializable, Comparable<Buceador> {
     }
 
     public void setEmail(String email) throws IllegalArgumentException {
-        if (email == null || email.isBlank()) {
-            this.email = "Desconocido";
+        email = limpiarTextoVacio(email);
+
+        if (email.isBlank()) {
+            this.email = "";
+            return;
         }
 
-        if (email.trim().length() >= 255) {
+        if (email.length() >= 255) {
             throw new IllegalArgumentException("El email no puede superar los 255 caracteres");
         }
 
+        // ^ inicio de la cadena
+        // [a-zA-Z0-9._%+-]+ uno o más caracteres antes de la @
+        // @ símbolo arroba obligatorio
+        // [a-zA-Z0-9.-]+ uno o más caracteres del dominio
+        // \\. punto literal obligatorio antes de la extensión
+        // [a-zA-Z]{2,} extensión del dominio con 2 o más letras
+        // $ final de la cadena
         if (!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
             throw new IllegalArgumentException("El email no tiene el formato correcto");
         }
 
-        this.email = email.trim();
+        this.email = email;
     }
 
     // ===============================
@@ -154,15 +164,23 @@ public class Buceador implements Serializable, Comparable<Buceador> {
     }
 
     public void setTelefono(String telefono) throws IllegalArgumentException {
-        if (telefono == null || telefono.trim().isEmpty()) {
-            this.telefono = "Desconocido";
+        telefono = limpiarTextoVacio(telefono);
+
+        if (telefono.isBlank()) {
+            this.telefono = "";
+            return;
         }
 
-        if (!telefono.matches("^\\+(?:\\[0-9] ?){6,14}\\[0-9]$")) {
+        // ^ inicio de la cadena
+        // \\+? símbolo + opcional al inicio
+        // [0-9\\s\\-] caracteres permitidos: números, espacios y guiones
+        // {9,20} entre 9 y 20 caracteres permitidos
+        // $ final de la cadena
+        if (!telefono.matches("^\\+?[0-9\\s\\-]{9,20}$")) {
             throw new IllegalArgumentException("El numero de telefono no tiene el formato correcto");
         }
 
-        this.telefono = telefono.trim();
+        this.telefono = telefono;
     }
 
     // ===============================
@@ -196,10 +214,6 @@ public class Buceador implements Serializable, Comparable<Buceador> {
 
         if (fechaAlta.isAfter(LocalDate.now())) {
             throw new IllegalArgumentException("La fecha de alta no puede ser después de la fecha actual");
-        }
-
-        if (this.fechaAlta != null) {
-            throw new IllegalArgumentException("El fecha de alta no se puede modificar una vez asignada");
         }
 
         this.fechaAlta = fechaAlta;
@@ -243,15 +257,18 @@ public class Buceador implements Serializable, Comparable<Buceador> {
     }
 
     public void setCompaniaSeguro(String companiaSeguro) throws IllegalArgumentException {
-        if (companiaSeguro == null || companiaSeguro.trim().isEmpty()) {
-            this.companiaSeguro = "Desconocido";
+        companiaSeguro = limpiarTextoVacio(companiaSeguro);
+
+        if (companiaSeguro.isBlank()) {
+            this.companiaSeguro = "";
+            return;
         }
 
         if (companiaSeguro.length() > 100) {
             throw new IllegalArgumentException("La compañía de seguro no puede superar los 255 caracteres");
         }
 
-        this.companiaSeguro = companiaSeguro.trim();
+        this.companiaSeguro = companiaSeguro;
     }
 
     // ===============================
@@ -263,16 +280,19 @@ public class Buceador implements Serializable, Comparable<Buceador> {
     }
 
     public void setContactoEmergNombre(String contactoEmergNombre) throws IllegalArgumentException {
-        if (contactoEmergNombre == null || contactoEmergNombre.isBlank()) {
-            this.contactoEmergNombre = "Desconocido";
+        contactoEmergNombre = limpiarTextoVacio(contactoEmergNombre);
+
+        if (contactoEmergNombre.isBlank()) {
+            this.contactoEmergNombre = "";
+            return;
         }
 
-        if (nombre.trim().length() < 2 || nombre.trim().length() > 50) {
+        if (contactoEmergNombre.length() < 2 || contactoEmergNombre.length() > 50) {
             throw new IllegalArgumentException(
                     "El nombre del contacto de emergencia no puede ser menos de 2 caracteres ni mayor que 50");
         }
 
-        this.nombre = nombre.trim();
+        this.contactoEmergNombre = contactoEmergNombre;
     }
 
     // ===============================
@@ -284,16 +304,24 @@ public class Buceador implements Serializable, Comparable<Buceador> {
     }
 
     public void setContactoEmergTelefono(String contactoEmergTelefono) throws IllegalArgumentException {
-        if (contactoEmergTelefono == null || contactoEmergTelefono.trim().isEmpty()) {
-            this.contactoEmergTelefono = "Desconocido";
+        contactoEmergTelefono = limpiarTextoVacio(contactoEmergTelefono);
+
+        if (contactoEmergTelefono.isBlank()) {
+            this.contactoEmergTelefono = "";
+            return;
         }
 
-        if (!contactoEmergTelefono.trim().matches("^\\+(?:\\[0-9] ?){6,14}\\[0-9]$")) {
+        // ^ inicio de la cadena
+        // \\+? símbolo + opcional al inicio
+        // [0-9\\s\\-] caracteres permitidos: números, espacios y guiones
+        // {9,20} entre 9 y 20 caracteres permitidos
+        // $ final de la cadena
+        if (!contactoEmergTelefono.matches("^\\+?[0-9\\s\\-]{9,20}$")) {
             throw new IllegalArgumentException(
                     "El numero de telefono del contacto de emergencia no tiene el formato correcto");
         }
 
-        this.contactoEmergTelefono = contactoEmergTelefono.trim();
+        this.contactoEmergTelefono = contactoEmergTelefono;
     }
 
     // ===============================
@@ -304,11 +332,7 @@ public class Buceador implements Serializable, Comparable<Buceador> {
         return grupoSanguineo;
     }
 
-    public void setGrupoSanguineo(GrupoSanguineo grupoSanguineo) throws IllegalArgumentException {
-        if (grupoSanguineo == null) {
-            this.grupoSanguineo = GrupoSanguineo.DESCONOCIDO;
-        }
-
+    public void setGrupoSanguineo(GrupoSanguineo grupoSanguineo) {
         this.grupoSanguineo = grupoSanguineo;
     }
 
@@ -321,15 +345,18 @@ public class Buceador implements Serializable, Comparable<Buceador> {
     }
 
     public void setAlergias(String alergias) throws IllegalArgumentException {
-        if (alergias == null) {
-            this.alergias = "Sin alergias conocidas";
+        alergias = limpiarTextoVacio(alergias);
+
+        if (alergias.isBlank()) {
+            this.alergias = "";
+            return;
         }
 
         if (alergias.length() >= 255) {
             throw new IllegalArgumentException("Las alergias no pueden superar los 255 caracteres");
         }
 
-        this.alergias = alergias.trim();
+        this.alergias = alergias;
     }
 
     // ===============================
@@ -341,15 +368,18 @@ public class Buceador implements Serializable, Comparable<Buceador> {
     }
 
     public void setTitulacionActual(String titulacionActual) throws IllegalArgumentException {
-        if (titulacionActual == null) {
-            this.titulacionActual = "Deconocida";
+        titulacionActual = limpiarTextoVacio(titulacionActual);
+
+        if (titulacionActual.isBlank()) {
+            this.titulacionActual = "";
+            return;
         }
 
-        if (titulacionActual.trim().length() >= 255) {
+        if (titulacionActual.length() >= 255) {
             throw new IllegalArgumentException("La titulación actual no puede superar los 255 caracteres");
         }
 
-        this.titulacionActual = titulacionActual.trim();
+        this.titulacionActual = titulacionActual;
     }
 
     // ===============================
@@ -361,15 +391,18 @@ public class Buceador implements Serializable, Comparable<Buceador> {
     }
 
     public void setOrganizacion(String organizacion) throws IllegalArgumentException {
-        if (organizacion == null) {
-            this.organizacion = "Desconocida";
+        organizacion = limpiarTextoVacio(organizacion);
+
+        if (organizacion.isBlank()) {
+            this.organizacion = "";
+            return;
         }
 
-        if (organizacion.trim().length() > 255) {
+        if (organizacion.length() > 255) {
             throw new IllegalArgumentException("La organización no puede superar los 255 caracteres");
         }
 
-        this.organizacion = organizacion.trim();
+        this.organizacion = organizacion;
     }
 
     // ===============================
@@ -383,6 +416,7 @@ public class Buceador implements Serializable, Comparable<Buceador> {
     public void setNumeroInmersiones(Integer numeroInmersiones) throws IllegalArgumentException {
         if (numeroInmersiones == null) {
             this.numeroInmersiones = 0;
+            return;
         }
 
         if (numeroInmersiones < 0) {
@@ -409,7 +443,7 @@ public class Buceador implements Serializable, Comparable<Buceador> {
         if (getClass() != obj.getClass())
             return false;
         Buceador other = (Buceador) obj;
-        return this.DNI.equalsIgnoreCase(other.DNI);
+        return this.dni.equalsIgnoreCase(other.dni);
     }
 
     // ===============================
@@ -420,7 +454,7 @@ public class Buceador implements Serializable, Comparable<Buceador> {
     public String toString() {
         return String.format(
                 "ID: %s - DNI: %s - NOMBRE: %s - APELLIDOS: %s - FECHA ALTA: %s",
-                this.id, this.DNI, this.nombre, this.apellidos, this.fechaAlta);
+                this.id, this.dni, this.nombre, this.apellidos, this.fechaAlta);
     }
 
     // ===============================
@@ -430,6 +464,23 @@ public class Buceador implements Serializable, Comparable<Buceador> {
     @Override
     public int compareTo(Buceador o) {
         return this.id.compareTo(o.id);
+    }
+
+    private String limpiarTextoVacio(String valor) {
+        if (valor == null) {
+            return "";
+        }
+
+        String texto = valor.trim();
+
+        if (texto.equalsIgnoreCase("Desconocido")
+                || texto.equalsIgnoreCase("Desconocida")
+                || texto.equalsIgnoreCase("Deconocida")
+                || texto.equalsIgnoreCase("Sin alergias conocidas")) {
+            return "";
+        }
+
+        return texto;
     }
 
 }

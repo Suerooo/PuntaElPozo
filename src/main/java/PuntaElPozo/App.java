@@ -14,7 +14,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("BuceadorView"), 1300, 760);
+        scene = new Scene(loadFXML("BuceadorView"), 1920, 1080);
         stage.setTitle("Gestión Club de Buceo - Punta El Pozo");
         stage.setScene(scene);
         stage.show();
@@ -25,9 +25,7 @@ public class App extends Application {
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(
-                App.class.getResource("/PuntaElPozo/" + fxml + ".fxml")
-        );
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/PuntaElPozo/" + fxml + ".fxml"));
         return fxmlLoader.load();
     }
 

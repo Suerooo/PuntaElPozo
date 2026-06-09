@@ -8,6 +8,5 @@ public enum GrupoSanguineo {
     AB_POS,
     AB_NEG,
     O_POS,
-    O_NEG,
-    DESCONOCIDO
+    O_NEG;
 }

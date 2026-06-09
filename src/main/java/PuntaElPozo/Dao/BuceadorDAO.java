@@ -1,9 +1,12 @@
 package PuntaElPozo.Dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -12,6 +15,10 @@ import PuntaElPozo.Model.GrupoSanguineo;
 
 public class BuceadorDAO {
     private ConexionDB conexionDB;
+
+    public BuceadorDAO() {
+        this.conexionDB = new ConexionDB();
+    }
 
     public boolean insertar(Buceador buceador) throws SQLException {
         String sql = """
@@ -37,11 +44,17 @@ public class BuceadorDAO {
                 """;
 
         try (Connection con = conexionDB.getConnection();
-                PreparedStatement ps = con.prepareStatement(sql)) {
+                PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             rellenarPreparedStatement(ps, buceador);
-            ps.executeUpdate();
-            return true;
+            int filasInsertadas = ps.executeUpdate();
+
+            if (filasInsertadas > 0) {
+                asignarIdGenerado(ps, buceador);
+                return true;
+            }
+
+            return false;
         }
     }
 
@@ -91,76 +104,7 @@ public class BuceadorDAO {
         }
     }
 
-    public Buceador buscarPorId(int idBuceador) throws SQLException {
-        String sql = """
-                    SELECT
-                        id,
-                        dni,
-                        nombre,
-                        apellidos,
-                        email,
-                        telefono,
-                        fechaNacimiento,
-                        fechaAlta,
-                        fechaUltimoReconocimiento,
-                        fechaCaducidadSeguro,
-                        companiaSeguro,
-                        contactoEmergNombre,
-                        contactoEmergTelefono,
-                        grupoSanguineo,
-                        alergias,
-                        titulacionActual,
-                        organizacion,
-                        numeroInmersiones
-                    FROM buceadores WHERE id = ?;
-                """;
-
-        try (Connection con = conexionDB.getConnection();
-                PreparedStatement ps = con.prepareStatement(sql)) {
-
-            ps.setInt(1, idBuceador);
-            ResultSet rs = ps.executeQuery();
-            return crearBuceador(rs);
-
-        }
-    }
-
-    public Buceador buscarPorDNI(String dni) throws SQLException {
-        String sql = """
-                    SELECT
-                        id,
-                        dni,
-                        nombre,
-                        apellidos,
-                        email,
-                        telefono,
-                        fechaNacimiento,
-                        fechaAlta,
-                        fechaUltimoReconocimiento,
-                        fechaCaducidadSeguro,
-                        companiaSeguro,
-                        contactoEmergNombre,
-                        contactoEmergTelefono,
-                        grupoSanguineo,
-                        alergias,
-                        titulacionActual,
-                        organizacion,
-                        numeroInmersiones
-                    FROM buceadores WHERE dni = ?;
-                """;
-
-        try (Connection con = conexionDB.getConnection();
-                PreparedStatement ps = con.prepareStatement(sql)) {
-
-            ps.setString(1, dni.toUpperCase());
-
-            try (ResultSet rs = ps.executeQuery()) {
-                return crearBuceador(rs);
-            }
-        }
-    }
-
-    public Map<Integer, Buceador> cargarListaBuceadores() throws SQLException {
+    public Map<Integer, Buceador> cargarMapaBuceadores() throws SQLException {
         String sql = """
                     SELECT
                         id,
@@ -184,17 +128,20 @@ public class BuceadorDAO {
                     FROM buceadores;
                 """;
 
-        Map<Integer, Buceador> listaBuceadores = new TreeMap<>();
+        Map<Integer, Buceador> mapaBuceadores = new TreeMap<>();
 
         try (Connection con = conexionDB.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)) {
 
             ResultSet rs = ps.executeQuery();
+
             while (rs.next()) {
-                listaBuceadores.put(rs.getInt("id"), crearBuceador(rs));
+
+                mapaBuceadores.put(rs.getInt("id"), crearBuceador(rs));
+
             }
 
-            return listaBuceadores;
+            return mapaBuceadores;
         }
     }
 
@@ -206,14 +153,27 @@ public class BuceadorDAO {
         buceador.setApellidos(rs.getString("apellidos"));
         buceador.setEmail(rs.getString("email"));
         buceador.setTelefono(rs.getString("telefono"));
-        buceador.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
-        buceador.setFechaAlta(rs.getDate("fechaAlta").toLocalDate());
-        buceador.setFechaUltimoReconocimiento(rs.getDate("fechaUltimoReconocimiento").toLocalDate());
-        buceador.setFechaCaducidadSeguro(rs.getDate("fechaCaducidadSeguro").toLocalDate());
+        LocalDate fechaNacimiento = obtenerFecha(rs, "fechaNacimiento");
+        LocalDate fechaAlta = obtenerFecha(rs, "fechaAlta");
+        LocalDate fechaUltimoReconocimiento = obtenerFecha(rs, "fechaUltimoReconocimiento");
+
+        if (fechaNacimiento != null) {
+            buceador.setFechaNacimiento(fechaNacimiento);
+        }
+
+        if (fechaAlta != null) {
+            buceador.setFechaAlta(fechaAlta);
+        }
+
+        if (fechaUltimoReconocimiento != null) {
+            buceador.setFechaUltimoReconocimiento(fechaUltimoReconocimiento);
+        }
+
+        buceador.setFechaCaducidadSeguro(obtenerFecha(rs, "fechaCaducidadSeguro"));
         buceador.setCompaniaSeguro(rs.getString("companiaSeguro"));
         buceador.setContactoEmergNombre(rs.getString("contactoEmergNombre"));
         buceador.setContactoEmergTelefono(rs.getString("contactoEmergTelefono"));
-        buceador.setGrupoSanguineo(GrupoSanguineo.valueOf(rs.getString("grupoSanguineo")));
+        buceador.setGrupoSanguineo(obtenerGrupoSanguineo(rs, "grupoSanguineo"));
         buceador.setAlergias(rs.getString("alergias"));
         buceador.setTitulacionActual(rs.getString("titulacionActual"));
         buceador.setOrganizacion(rs.getString("organizacion"));
@@ -222,9 +182,27 @@ public class BuceadorDAO {
         return buceador;
     }
 
+    private void asignarIdGenerado(PreparedStatement ps, Buceador buceador) throws SQLException {
+        try (ResultSet clavesGeneradas = ps.getGeneratedKeys()) {
+            if (clavesGeneradas.next()) {
+                buceador.setId(clavesGeneradas.getInt(1));
+            }
+        }
+    }
+
+    private LocalDate obtenerFecha(ResultSet rs, String columna) throws SQLException {
+        Date fecha = rs.getDate(columna);
+        return fecha == null ? null : fecha.toLocalDate();
+    }
+
+    private GrupoSanguineo obtenerGrupoSanguineo(ResultSet rs, String columna) throws SQLException {
+        String valor = rs.getString(columna);
+        return valor == null || valor.isBlank() ? null : GrupoSanguineo.valueOf(valor);
+    }
+
     private void rellenarPreparedStatement(PreparedStatement ps, Buceador buceador) throws SQLException {
 
-        ps.setString(1, buceador.getDNI());
+        ps.setString(1, buceador.getDni());
         ps.setString(2, buceador.getNombre());
         ps.setString(3, buceador.getApellidos());
         ps.setString(4, buceador.getEmail());
@@ -235,7 +213,7 @@ public class BuceadorDAO {
         ps.setString(9, buceador.getCompaniaSeguro());
         ps.setString(10, buceador.getContactoEmergNombre());
         ps.setString(11, buceador.getContactoEmergTelefono());
-        ps.setString(12, buceador.getGrupoSanguineo().name());
+        ps.setString(12, buceador.getGrupoSanguineo() == null ? null : buceador.getGrupoSanguineo().name());
         ps.setString(13, buceador.getAlergias());
         ps.setString(14, buceador.getTitulacionActual());
         ps.setString(15, buceador.getOrganizacion());
