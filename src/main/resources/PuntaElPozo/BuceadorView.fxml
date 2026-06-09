@@ -193,7 +193,7 @@
                                 </cellValueFactory>
                             </TableColumn>
 
-                            <TableColumn maxWidth="150" minWidth="150" prefWidth="150" resizable="false" sortable="false" text="DNI/NIE/Pasaporte">
+                            <TableColumn maxWidth="150" minWidth="150" prefWidth="150" resizable="false" sortable="false" text="DNI">
                                 <cellValueFactory>
                                     <PropertyValueFactory property="dni" />
                                 </cellValueFactory>

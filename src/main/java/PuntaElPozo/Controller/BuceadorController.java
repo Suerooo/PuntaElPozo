@@ -113,6 +113,8 @@ public class BuceadorController {
             actualizarBotones();
         });
 
+        limpiarFormulario();
+
         try {
 
             mapaBuceadores = SincronizarBuceadores.cargar();
@@ -138,6 +140,7 @@ public class BuceadorController {
                 guardadoEnMySQL = buceadorDAO.insertar(buceador);
             } catch (SQLException e) {
                 guardadoEnMySQL = false;
+                buceador.setId(obtenerIdLocal());
             }
 
             mapaBuceadores.put(buceador.getId(), buceador);
@@ -179,7 +182,7 @@ public class BuceadorController {
             tablaBuceadores.getSelectionModel().clearSelection();
             lblEstado.setText(actualizadoEnMySQL
                     ? "Buceador modificado correctamente"
-                    : "Buceador modificado en copia local. MySQL no esta disponible");
+                    : "Buceador modificado en copia local MySQL no esta disponible");
 
         } catch (IllegalArgumentException e) {
             mostrarAviso("Dato incorrecto", e.getMessage());
@@ -314,6 +317,16 @@ public class BuceadorController {
 
     private String obtenerTextoCampo(TextInputControl campo) {
         return campo.getText() == null ? "" : campo.getText().trim();
+    }
+
+    private int obtenerIdLocal() {
+        Map.Entry<Integer, Buceador> lastEntry = ((TreeMap) mapaBuceadores).lastEntry();
+
+        if (lastEntry == null) {
+            return 1;
+        }
+
+        return lastEntry.getKey() + 1;
     }
 
     private void mostrarAviso(String titulo, String mensaje) {
