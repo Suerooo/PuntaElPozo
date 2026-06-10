@@ -38,7 +38,7 @@
 
             <!-- PANEL FORMULARIO -->
             <AnchorPane minWidth="0">
-                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="form-scroll" vbarPolicy="AS_NEEDED" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" styleClass="form-scroll" vbarPolicy="AS_NEEDED" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
                 <VBox spacing="18" styleClass="form-panel">
 
                     <VBox spacing="4">
@@ -193,7 +193,7 @@
                                 </cellValueFactory>
                             </TableColumn>
 
-                            <TableColumn maxWidth="150" minWidth="150" prefWidth="150" resizable="false" sortable="false" text="DNI/NIE/Pasaporte">
+                            <TableColumn maxWidth="150" minWidth="150" prefWidth="150" resizable="false" sortable="false" text="DNI">
                                 <cellValueFactory>
                                     <PropertyValueFactory property="dni" />
                                 </cellValueFactory>

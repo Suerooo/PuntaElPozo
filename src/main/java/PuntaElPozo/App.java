@@ -14,8 +14,8 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("BuceadorView"), 1920, 1080);
-        stage.setTitle("Gestión Club de Buceo - Punta El Pozo");
+        scene = new Scene(loadFXML("BuceadorView"), 1920, 950);
+        stage.setTitle("Punta El Pozo");
         stage.setScene(scene);
         stage.show();
     }

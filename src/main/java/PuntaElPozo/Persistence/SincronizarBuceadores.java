@@ -28,7 +28,7 @@ public class SincronizarBuceadores {
 
             Map<Integer, Buceador> mapaLocal = fileDat.cargar();
 
-            if (!mapaLocal.isEmpty()) {
+            if (!mapaLocal.isEmpty() || !mapaMySQL.isEmpty()) {
 
                 sincronizarLocalConMySQL(mapaLocal, mapaMySQL);
 
@@ -61,13 +61,23 @@ public class SincronizarBuceadores {
     private void sincronizarLocalConMySQL(Map<Integer, Buceador> mapaLocal, Map<Integer, Buceador> mapaMySQL)
             throws SQLException {
 
+        for (Integer idMySQL : mapaMySQL.keySet()) {
+            if (!mapaLocal.containsKey(idMySQL)) {
+                dao.eliminar(idMySQL);
+            }
+        }
+
         for (Buceador buceadorLocal : mapaLocal.values()) {
 
             if (buceadorLocal == null) {
                 continue;
             }
 
-            Buceador buceadorMySQL = buscarEnMapaPorDni(mapaMySQL, buceadorLocal.getDni());
+            Buceador buceadorMySQL = mapaMySQL.get(buceadorLocal.getId());
+
+            if (buceadorMySQL == null) {
+                buceadorMySQL = buscarEnMapaPorDni(mapaMySQL, buceadorLocal.getDni());
+            }
 
             if (buceadorMySQL == null) {
 

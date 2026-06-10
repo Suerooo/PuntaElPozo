@@ -85,8 +85,7 @@ public class BuceadorDAO {
 
             rellenarPreparedStatement(ps, buceador);
             ps.setInt(17, buceador.getId());
-            ps.executeUpdate();
-            return true;
+            return ps.executeUpdate() > 0;
 
         }
     }
@@ -98,8 +97,7 @@ public class BuceadorDAO {
                 PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, idBuceador);
-            ps.executeUpdate();
-            return true;
+            return ps.executeUpdate() > 0;
 
         }
     }

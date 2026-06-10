@@ -70,6 +70,10 @@ public class Buceador implements Serializable, Comparable<Buceador> {
     }
 
     public void setDni(String dni) {
+        if (dni == null || dni.isBlank()) {
+            throw new IllegalArgumentException("nombre no puede ser null ni vacío");
+        }
+
         // ^ inicio de la cadena
         // \\d{8} exactamente 8 dígitos del 0 9
         // [A-Z] una letra mayúscula de la A a la Z
@@ -130,8 +134,6 @@ public class Buceador implements Serializable, Comparable<Buceador> {
     }
 
     public void setEmail(String email) throws IllegalArgumentException {
-        email = limpiarTextoVacio(email);
-
         if (email.isBlank()) {
             this.email = "";
             return;
@@ -164,8 +166,6 @@ public class Buceador implements Serializable, Comparable<Buceador> {
     }
 
     public void setTelefono(String telefono) throws IllegalArgumentException {
-        telefono = limpiarTextoVacio(telefono);
-
         if (telefono.isBlank()) {
             this.telefono = "";
             return;
@@ -257,8 +257,6 @@ public class Buceador implements Serializable, Comparable<Buceador> {
     }
 
     public void setCompaniaSeguro(String companiaSeguro) throws IllegalArgumentException {
-        companiaSeguro = limpiarTextoVacio(companiaSeguro);
-
         if (companiaSeguro.isBlank()) {
             this.companiaSeguro = "";
             return;
@@ -280,8 +278,6 @@ public class Buceador implements Serializable, Comparable<Buceador> {
     }
 
     public void setContactoEmergNombre(String contactoEmergNombre) throws IllegalArgumentException {
-        contactoEmergNombre = limpiarTextoVacio(contactoEmergNombre);
-
         if (contactoEmergNombre.isBlank()) {
             this.contactoEmergNombre = "";
             return;
@@ -304,8 +300,6 @@ public class Buceador implements Serializable, Comparable<Buceador> {
     }
 
     public void setContactoEmergTelefono(String contactoEmergTelefono) throws IllegalArgumentException {
-        contactoEmergTelefono = limpiarTextoVacio(contactoEmergTelefono);
-
         if (contactoEmergTelefono.isBlank()) {
             this.contactoEmergTelefono = "";
             return;
@@ -345,8 +339,6 @@ public class Buceador implements Serializable, Comparable<Buceador> {
     }
 
     public void setAlergias(String alergias) throws IllegalArgumentException {
-        alergias = limpiarTextoVacio(alergias);
-
         if (alergias.isBlank()) {
             this.alergias = "";
             return;
@@ -368,8 +360,6 @@ public class Buceador implements Serializable, Comparable<Buceador> {
     }
 
     public void setTitulacionActual(String titulacionActual) throws IllegalArgumentException {
-        titulacionActual = limpiarTextoVacio(titulacionActual);
-
         if (titulacionActual.isBlank()) {
             this.titulacionActual = "";
             return;
@@ -391,8 +381,6 @@ public class Buceador implements Serializable, Comparable<Buceador> {
     }
 
     public void setOrganizacion(String organizacion) throws IllegalArgumentException {
-        organizacion = limpiarTextoVacio(organizacion);
-
         if (organizacion.isBlank()) {
             this.organizacion = "";
             return;
@@ -465,22 +453,4 @@ public class Buceador implements Serializable, Comparable<Buceador> {
     public int compareTo(Buceador o) {
         return this.id.compareTo(o.id);
     }
-
-    private String limpiarTextoVacio(String valor) {
-        if (valor == null) {
-            return "";
-        }
-
-        String texto = valor.trim();
-
-        if (texto.equalsIgnoreCase("Desconocido")
-                || texto.equalsIgnoreCase("Desconocida")
-                || texto.equalsIgnoreCase("Deconocida")
-                || texto.equalsIgnoreCase("Sin alergias conocidas")) {
-            return "";
-        }
-
-        return texto;
-    }
-
 }
